@@ -1,0 +1,15 @@
+.activeS {
+    background-color: tomato;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+
+body {
+    background-image: url("https://dan-news.info/wp-content/uploads/2018/05/dan-news.info-2018-05-22_12-46-05_216360--------5.jpg");
+    background-repeat: repeat;
+    background-size: 100%;
+    position: relative;
+}
+body::-webkit-scrollbar { 
+    width: 0; }
