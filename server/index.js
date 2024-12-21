@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 5000
 
 const serverStart = async () => {
     try{
-        await mongoose.connect(config.get('db'), {useNewUrlParser: true, useUnifiedTopology: true})
+        await mongoose.connect(config.get('dbAlterConnect'), {useNewUrlParser: true, useUnifiedTopology: true})
         console.log("DB has connected")
         app.listen(PORT, (err) => {
             if (err){

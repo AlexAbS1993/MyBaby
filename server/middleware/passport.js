@@ -8,15 +8,15 @@ var opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = config.get('secret');
 
-export default (passport) => { passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-    User.findOne({_id: jwt_payload.id}, function(err, user) {
-        if (err) {
-            return done(err, false);
+export default (passport) => { passport.use(new JwtStrategy(opts, async function(jwt_payload, done) {
+    try{
+        let user = await User.findOne({_id: jwt_payload.id})
+        if(!user){
+            return done(null, false);      
         }
-        if (user) {
-            return done(null, user);
-        } else {
-            return done(null, false);        
-        }
-    });
+        return done(null, user);
+    }
+    catch(e){
+        return done(err, false);
+    }
 }))};

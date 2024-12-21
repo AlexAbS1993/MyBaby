@@ -1,9 +1,10 @@
 {
     "db": "mongodb+srv://AlexAbS:199304@cluster0.qd0fz.mongodb.net/family?retryWrites=true&w=majority",
+    "dbAlterConnect": "mongodb+srv://AlexAbS:199304@alexabscluster.qd0fz.mongodb.net/mybaby?retryWrites=true&w=majority&appName=AlexAbSCluster",
     "invites": [
         {"value": "ItIsAInviteForAdminAlex", "used": true },
-        {"value": "HelloRayokaWelcomeToTheFamily", "used": true },
-        {"value": "BabushkaIrinaWelcome", "used": true }
+        {"value": "HelloRayokaWelcomeToTheFamily", "used": false },
+        {"value": "BabushkaIrinaWelcome", "used": false }
     ],
     "secret": "notAsecret",
     "url": "localhost:5000"
