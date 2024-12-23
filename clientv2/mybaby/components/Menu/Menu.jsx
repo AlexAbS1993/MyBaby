@@ -4,18 +4,13 @@ import Nav from 'react-bootstrap/Nav'
 import {Container, Button} from 'react-bootstrap'
 import { ReglogStyled, TitleStyled, LinkStyled} from '../../styled/styled'
 import styles from './menu.module.css'
-// import { useDispatch, useSelector } from 'react-redux'
-// import {logOut} from '../../redux/authReducer'
-import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { logOut } from '@/redux/authReducer'
+
 
 export const Menu = () => {
-    // const authstate = useSelector(state => state.auth)
-    // const dispatch = useDispatch()
-    const [authstate, setAuthstate] = useState({
-        isAuth: true,
-        statusFamily: 'father',
-        login: 'alexabs'
-    })
+  const dispatch = useDispatch()
+  const authstate = useSelector(state => state.auth)
     return (
  <Navbar bg="dark" expand="lg" className="text-light" variant="dark" >
       <Container fluid="md">
@@ -33,7 +28,7 @@ export const Menu = () => {
      {!authstate.isAuth ? <> <Nav.Link as='div'><ReglogStyled href='/login' >Вход</ReglogStyled></Nav.Link>
       <Nav.Link as='div'><ReglogStyled href='/registration' >Регистрация</ReglogStyled></Nav.Link> </>: <></>}
       {authstate.isAuth && <Button variant='outline-danger' 
-    //   onClick={() => {dispatch(logOut())}}
+      onClick={() => {dispatch(logOut())}}
         >Выход</Button>}
     </Nav> 
   </Navbar.Collapse>

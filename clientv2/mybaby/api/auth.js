@@ -13,7 +13,6 @@ export const authAPI = {
         return instance.post('/registration', {...data})
     },
     getLogin: () => {
-        
         return instance.get('/login', { headers: {
             Authorization: localStorage.getItem('token')
         }       
