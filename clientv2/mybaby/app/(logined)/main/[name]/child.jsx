@@ -5,6 +5,7 @@ import { Container, Row, Col, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getBaby, nullifyBaby } from '@/redux/babyReducer'
 import {DateTime} from 'luxon'
+import { dayPronounce, monthPronounce, yearsPronounce } from '@/lib/dateNaming'
 
 export default function Child({name}){
     const babyState = useSelector(state => state.baby)
@@ -68,7 +69,7 @@ function HowOld({birthDate}){
         let date = new Date(birthDate)
         const valentinBirthday = DateTime.local(date.getFullYear(), date.getMonth()+1, date.getDate())
         let newdt = dt.minus(valentinBirthday.c)
-        return `${newdt.year} год ${newdt.month} месяцев ${newdt.day} дней`
+        return `${newdt.year} ${yearsPronounce(newdt.year)} ${newdt.month} ${monthPronounce(newdt.month)} ${newdt.day} ${dayPronounce(newdt.day)}`
     }
     return <>
     {getOld()}
