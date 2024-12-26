@@ -8,7 +8,6 @@ import photosRouter from './routes/photos.js'
 import passportStartFunction from './middleware/passport.js' 
 import passport from 'passport'
 
-
 export const app = express()
 
 app.use(cors())

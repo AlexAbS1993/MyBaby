@@ -6,8 +6,8 @@ const photosController = {
         try {
             const lim = 9
             const skip = (req.query.skip - 1) * lim
-            const photos = await Photos.find().skip(skip).limit(lim).sort({dateOfPublish: -1}).populate({path: "author"}).populate({path: "commentary", populate: {path: "author"}})
-            const count = await Photos.find().count()
+            const photos = await Photos.find().skip(skip).limit(lim).sort({dateOfPublish: -1}).populate({path: "author", select: '-password -status'}).populate({path: "commentary", populate: {path: "author", select: '-password',}})
+            const count = (await Photos.find()).length
             res.json({photos, count})
         }
         catch(e){

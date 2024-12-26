@@ -6,7 +6,7 @@ const Baby = new mongoose.Schema({
     firstName: {type: String, required: true},
     secondName: {type: String, required: true},
     thirdName: {type: String, required: true},
-    birthDate: {type: Date, required: true},
+    birthDate: {type: String, required: true},
     photos: [{type: mongoose.Schema.Types.ObjectId, ref: "Photo"}],
     siblings: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}]
 })

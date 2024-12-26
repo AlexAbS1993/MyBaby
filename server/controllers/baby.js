@@ -4,7 +4,10 @@ import Baby from '../models/Baby.js'
 const babyController = {
     getBaby: async (req, res) => {
         try{
-            const baby = await Baby.find()
+            const {name} =  req.query
+            const baby = await Baby.find({
+                firstName: name
+            })
             res.json(baby[0])
         }
         catch(e){
