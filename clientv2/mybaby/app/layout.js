@@ -21,10 +21,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// export const metadata = {
-//   title: "My babies app",
-//   description: "Обновлённый сайт о детях",
-// };
 
 export default function RootLayout({ children }) {
   return (

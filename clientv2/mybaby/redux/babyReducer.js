@@ -1,3 +1,4 @@
+import config from '@/config/config'
 import {babyAPI} from '../api/baby'
 
 const initialState = {
@@ -19,10 +20,10 @@ export const babyReducer = (state = initialState, action) => {
         case GET_BABY: {
             let photo
             if (action.data.firstName === 'Валентин'){
-                photo = "http://localhost:5000/uploads/1609558997696mPDR-Iv5wEk.jpg"
+                photo = `http://${config.serverIP}:5000/uploads/1735251624072pBaAaqDxZQc.jpg`
             }
             else{ 
-                photo = "http://localhost:5000/uploads/inna.jpg"
+                photo = `http://${config.serverIP}:5000/uploads/inna.jpg`
             }
             return {
                 ...state,

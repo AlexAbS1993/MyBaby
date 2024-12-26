@@ -1,0 +1,11 @@
+.inna_button {
+    background-color: pink;
+    color: blueviolet;
+    border: none;
+}
+
+.inna_button:hover {
+    background-color: rgb(252, 150, 167);
+    color: blueviolet;
+    transition: all 0.2s ease;
+}   
