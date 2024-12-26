@@ -6,8 +6,8 @@ const instance = axios.create({
 
 
 export const babyAPI = {
-    getBaby: () => {
-        return instance.get('/', {headers: {
+    getBaby: (name) => {
+        return instance.get(`/?name=${name}`, {headers: {
             Authorization: localStorage.getItem('token')
         }})
     }

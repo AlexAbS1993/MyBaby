@@ -1,8 +1,3 @@
-"use client"
-
-
-export default function Main(){
-    return <>
-    
-    </>
+export default function ChildPage(){
+    return <></>
 }

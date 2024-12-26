@@ -43,13 +43,10 @@ function Root({ children }){
     dispatch(setLogin())
   }, [])
   useEffect(() => {
-    if(isAuth){
-      router.push('/main', undefined, { shallow: true })
-    }
-    else {
+    if(!isAuth && initialized){
       router.push('/login', undefined, { shallow: true })
     }
-  }, [isAuth])
+  }, [isAuth, initialized])
   return <body className={`${geistSans.variable} ${geistMono.variable}`}>
   {
     initialized ? 
