@@ -1,7 +1,8 @@
 import axios from 'axios'
+import config from '@/config/config'
 
 const instance = axios.create({
-    baseURL: "http://localhost:5000/api/baby"
+    baseURL: `http://${config.serverIP}:5000/api/baby`
 })
 
 
