@@ -18,7 +18,7 @@ export const Paginator = ({currentPage, count, func, lim}) => {
         const pag = pages.map((element) => {
             return <PaginatorAct 
             element={element || 1} 
-            currentPage={currentPage || 1} 
+            $currentPage={currentPage || 1} 
             key={`${element}`} 
             onClick={() => {sendSkip(element)}}> 
             {element} 
