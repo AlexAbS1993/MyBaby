@@ -7,7 +7,7 @@ const phrasesController = {
             const lim = 5
             const skip = (req.query.skip - 1) * lim
             const phrases = await Phrases.find().sort({dateOfPublish: -1}).skip(skip).limit(lim).populate({path: "comment", populate:{path: "author"}}).populate({path: "author"})
-            const count = await Phrases.find().count()
+            const count = await Phrases.find().countDocuments()
             const response = {phrases, count}
             res.json(response)
 

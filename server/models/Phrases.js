@@ -6,6 +6,7 @@ const Phrase = new mongoose.Schema({
     comment: [{type: mongoose.Schema.Types.ObjectId, ref: "Comment"}],
     dateOfPublish: {type: Date},
     author: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
+    childAuthor: {type: mongoose.Schema.Types.String},
     wordEvo: [{type: String}]
 })
 
