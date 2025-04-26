@@ -53,7 +53,7 @@ export const controller = {
             const candidate = await User.findOne({login: req.body.login})
             if (candidate == null){
                 const error = {
-                    message: "такого пользователя не существует"
+                    message: "Пользователя не существует"
                 }
                 await res.status(404).json(error)
                 return
