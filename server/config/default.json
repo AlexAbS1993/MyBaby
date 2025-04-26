@@ -3,7 +3,7 @@
     "dbAlterConnect": "mongodb+srv://AlexAbS:199304@alexabscluster.qd0fz.mongodb.net/mybaby?retryWrites=true&w=majority&appName=AlexAbSCluster",
     "invites": [
         {"value": "ItIsAInviteForAdminAlex", "used": true },
-        {"value": "HelloRayokaWelcomeToTheFamily", "used": false },
+        {"value": "HelloRayokaWelcomeToTheFamily", "used": true },
         {"value": "BabushkaIrinaWelcome", "used": false }
     ],
     "secret": "notAsecret",
