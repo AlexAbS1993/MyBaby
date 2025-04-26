@@ -8,7 +8,7 @@ export const controller = {
         try{
             const candidate = await User.findOne({login: req.body.login})
             if (candidate){
-                res.status(400).json({
+                res.status(406).json({
                     message: "пользователь уже существует"
                 })
                 return
@@ -50,6 +50,13 @@ export const controller = {
     },
     login: async (req, res) => {
         try{
+            if(!req.body.login || !req.body.password){
+                const error = {
+                    message: "Отсутствуют требуемые поля"
+                }
+                await res.status(400).json(error)
+                return
+            }
             const candidate = await User.findOne({login: req.body.login})
             if (candidate == null){
                 const error = {
@@ -60,7 +67,7 @@ export const controller = {
             }
             const isPasswordTrue = await bcrypt.compare(req.body.password, candidate.password)
             if (!isPasswordTrue){
-                await res.status(400).json({
+                await res.status(401).json({
                     message: "неправильный пароль"
                 })
                 return

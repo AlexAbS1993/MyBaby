@@ -12,6 +12,15 @@ export const app = express()
 
 app.use(cors())
 app.use(express.json())
+app.use(
+    express.urlencoded({
+        extended: true,
+        inflate: true,
+        limit: "1mb",
+        parameterLimit: 5000,
+        type: "application/x-www-form-urlencoded",
+    })
+);
 app.use(passport.initialize())
 passportStartFunction(passport)
 
