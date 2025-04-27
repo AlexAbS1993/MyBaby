@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Документация SERVER API MyBaby</title>
+    <link rel="stylesheet" href="api_doc.css"/>
+</head>
+<body>
+    <h1>Документация к API для REST-сервера приложения MyBaby</h1>
+    <p>Сервер выполняет задачу поставки данных в приложение через обращение к базе данных. Каждый ответ от сервера возвращает статус, headers и объект ответа со значениями и типами. Описание сложных типов можно найти в приложении документации.</p>
+    
+    <div class="toc">
+        <h2>Оглавление</h2>
+        <ul>
+            <li><a href="#section1">1. Логинизация</a>
+                <ul>
+                    <li><a href="#login-get">GET /login</a></li>
+                    <li><a href="#login-post">POST /login</a></li>
+                </ul>
+            </li>
+            <li><a href="#section2">2. Регистрация</a>
+                <ul>
+                    <li><a href="#registration-post">POST /registration</a></li>
+                </ul>
+            </li>
+            <li><a href="#appendix">Приложение (Типы данных)</a></li>
+        </ul>
+    </div>
+
+    <h2 id="section1" class="section-title">1. Логинизация</h2>
+
+    <div class="endpoint" id="login-get">
+        <h3><span class="method get">GET</span> /login</h3>
+        <p>Логинизация посредством использования jwt-токена.</p>
+        <p>Клиенту необходимо отправить в качестве заголовка Authentication значение токена в формате <code>'Bearer ' + token</code></p>
+        
+        <div class="response">
+            <p class="status e200">STATUS 200. Успех. Вы авторизованы с помощью jwt-токена.</p>
+            <p>Тело ответа:</p>
+            <pre><code>{
+    login: string, // логин пользователя
+    statusFamily: statusFamilyType, // статус пользователя в семье
+    status: citeStatusType // статус пользователя на сайте
+}</code></pre>
+        </div>
+        
+        <div class="response">
+            <p class="status e400">STATUS 400. Непредвиденная ошибка.</p>
+            <p>Может быть связана с работой третьей стороны (базы данных, сети и тд).</p>
+            <p>Тело ответа:</p>
+            <pre><code>{
+    message: 'Error', // Дефолтное неопределенное описание ошибки
+    error: string // Конкретная ошибка, переданная с нижнего уровня
+}</code></pre>
+        </div>
+    </div>
+
+    <div class="endpoint" id="login-post">
+        <h3><span class="method post">POST</span> /login</h3>
+        <p>Классический способ входа на сайт с использованием логина и пароля</p>
+        <p>Клиенту необходимо подготовить body с полями:</p>
+        <pre><code>{
+    login: string,
+    password: string
+}</code></pre>
+        
+        <div class="response">
+            <p class="status e200">STATUS 200. Успех. Вы авторизованы с помощью jwt-токена.</p>
+            <p>Тело ответа:</p>
+            <pre><code>{
+    token: `Bearer ${token}` as string, // access-токен, который необходимо сохранить в localStorage
+    login: string, // логин пользователя
+    statusFamily: statusFamilyType, // статус пользователя в семье
+    status: citeStatusType, // статус пользователя на сайте
+    _id: string // уникальный идентификатор пользователя в базе данных
+}</code></pre>
+        </div>
+        
+        <div class="response">
+            <p class="status e404">STATUS 404. Пользователя с указанными данными не существует.</p>
+            <p>Тело ответа:</p>
+            <pre><code>{
+    message: 'Пользователя не существует'
+}</code></pre>
+        </div>
+        
+        <div class="response">
+            <p class="status e401">STATUS 401. Пользователь не был авторизован с помощью введенных данных.</p>
+            <p>Тело ответа:</p>
+            <pre><code>{
+    message: 'неправильный пароль'
+}</code></pre>
+        </div>
+        
+        <div class="response">
+            <p class="status e400">STATUS 400. Непредвиденная ошибка.</p>
+            <p>Тело ответа:</p>
+            <pre><code>{
+    message: 'Error',
+    error: string
+}</code></pre>
+        </div>
+    </div>
+
+    <h2 id="section2" class="section-title">2. Регистрация</h2>
+
+    <div class="endpoint" id="registration-post">
+        <h3><span class="method post">POST</span> /registration</h3>
+        <p>Регистрация в приложении реализована, но доступна пользователю с имеющимся инвайтом 1 раз.</p>
+        <p>Запрос требует от клиента отправки тела со следующими полями:</p>
+        <pre><code>{
+    login: string,
+    password: string,
+    statusFamily: statusFamilyType,
+    invite: string
+}</code></pre>
+        
+        <div class="response">
+            <p class="status e200">STATUS 200. Успешная регистрация.</p>
+            <p>Пользователь в теле ответа получает логин, пароль и семейный статус.</p>
+        </div>
+        
+        <div class="response">
+            <p class="status e406">STATUS 406. Регистрация невозможна, так как пользователь уже зарегистрирован.</p>
+            <p>Тело ответа:</p>
+            <pre><code>{
+    message: 'пользователь уже зарегистрирован'
+}</code></pre>
+        </div>
+        
+        <div class="response">
+            <p class="status e400">STATUS 400. Регистрация невозможна. Неверный инвайт.</p>
+            <p>Тело ответа:</p>
+            <pre><code>{
+    message: "недействительный инвайт"
+}</code></pre>
+        </div>
+    </div>
+
+    <div class="appendix" id="appendix">
+        <h2 class="section-title">ПРИЛОЖЕНИЕ</h2>
+        <p>Развернутый перечень типов возвращаемых данных.</p>
+        <div class="note">
+            <p><strong>Замечание:</strong> список сложных типов состоит из названия базового примитивного типа, который может включать в себя ограниченное количество значений в скобках.</p>
+        </div>
+        
+        <h3>Типы данных:</h3>
+        <ul>
+            <li><code>statusFamilyType = string('Папа','Мама','Малыш','Малышка')</code></li>
+            <li><code>citeStatusType = string('admin', 'user')</code></li>
+        </ul>
+    </div>
+
+    <script>
+        // Плавная прокрутка для якорных ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
