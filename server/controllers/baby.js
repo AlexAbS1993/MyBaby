@@ -8,12 +8,22 @@ const babyController = {
             const baby = await Baby.find({
                 firstName: name
             })
+            if (!baby){
+                throw new Error('Такого ребёнка нет')
+            }
             res.json(baby[0])
         }
         catch(e){
-            res.status(400).json({
-
-            })
+            if (e.message === 'Такого ребёнка нет'){
+                res.status(404).json({
+                    message: e.message
+                })
+            }
+            else{
+                res.status(400).json({
+                    message: e.message
+                })
+            }
         }
     },
     createBaby: async (req, res) => {

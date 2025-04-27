@@ -80,7 +80,29 @@ POST /registration
 }
 
 3. Ребёнок
-
+GET /baby
+Получение данных о ребёнке.
+Запрос требует от клиента указания обязательных query-параметров:
+?name=ChilrensNameType
+Варианты ответа от сервера:
+-STATUS 200. Успешно получены данные о ребёнке. Тело ответа содержит следующие данные:
+{
+    statusFamily: statusFamilyType,
+    firstName: string,
+    secondName: string,
+    thirdName: string,
+    birthDate: date,
+    photos: Photos[],
+    siblings: Users[]
+}
+- STATUS 404. Не удалось найти ребёнка по query-параметру. Такого ребёнка нет. Требуется вводить данные по запрашиваемому типу. Тело ответа:
+{
+        message: 'Такого ребёнка нет'
+}
+- STATUS 400. Неизвестная ошибка от сторонних модулей. Тело ответа: 
+{
+        message: string
+}
 
 ПРИЛОЖЕНИЕ
 
@@ -88,6 +110,9 @@ POST /registration
 Замечание: список сложных типов состоит из названия базового примитивного типа, который может включать в себя ограниченное количество значений
 в скобках, либо .
 
-1. GET /login
+1. GET /login, /baby
 statusFamilyType = string('Папа','Мама','Малыш','Малышка')
 citeStatusType = string('admin', 'user')
+
+2. GET /baby
+ChilrensNameType = string('Валентин', 'Инна')
